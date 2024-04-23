@@ -38,3 +38,13 @@ export const updateIssue = async (id, technician, assignDate) => {
     throw error;
   }
 };
+
+export const fetchIssue = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/issue/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log("Error Fetching Data>> ", error);
+    throw error;
+  }
+};

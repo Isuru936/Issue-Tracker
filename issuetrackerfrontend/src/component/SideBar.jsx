@@ -4,6 +4,7 @@ import { deleteIssue, fetchIssues, updateIssue } from "../services/apiService";
 import { fetchHandlers } from "../services/handlerService";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const SideBar = ({
   isOpen,
@@ -13,7 +14,7 @@ const SideBar = ({
 }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState([]);
-  const [error, setError] = useState(false);
+  const [error] = useState(false);
 
   useEffect(() => {
     fetchHandlers()
@@ -36,6 +37,9 @@ const SideBar = ({
       });
   }, []);
 
+  const id = selectedDivData?.id;
+  const technician = selectedDivData?.technician;
+
   const handleCloseClick = () => {
     toggleSidebar();
   };
@@ -45,7 +49,6 @@ const SideBar = ({
       deleteIssue(selectedDivData.id)
         .then(() => {
           fetchIssues().then(() => {
-            console.log(selectedDivData.id);
             refreshSidebarData();
             toggleSidebar();
           });
@@ -64,6 +67,7 @@ const SideBar = ({
     if (selectedOption === "Select Technician") {
       alert("Please select a technician");
     } else {
+      // TODO: SEPERATE THE DATES TO A NEW FUNCTION
       const currentDate = new Date();
       const year = currentDate.getFullYear();
       const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Add leading zero if needed
@@ -96,14 +100,16 @@ const SideBar = ({
         <div className="col-10 text-wrap fs-5">{selectedDivData?.subject}</div>
 
         <div className="col-2 d-flex justify-content-end mb-2">
-          <button className="bg-dark text-ash">
-            <Icon
-              icon="radix-icons:open-in-new-window"
-              width="24"
-              height="24"
-              color="white"
-            />
-          </button>
+          <Link to={`/view-issue/${id}`} target="_blank">
+            <button className="bg-dark text-ash">
+              <Icon
+                icon="radix-icons:open-in-new-window"
+                width="24"
+                height="24"
+                color="white"
+              />
+            </button>
+          </Link>
           <button className="bg-dark text-ash ms-2" onClick={handleCloseClick}>
             <Icon
               icon="mingcute:close-fill"
@@ -124,8 +130,8 @@ const SideBar = ({
         <p>
           Sender: <span className="text-ash">{selectedDivData?.email}</span>
         </p>
-        <div className="d-flex flex-column ">
-          {console.log(options)}
+        <div className="d-flex flex-column">
+          <p>Technician:{technician}</p>
           <label htmlFor="combo">Assign Technician:</label>
           <select
             className="htmlForm-select bg-dark text-white"
@@ -135,7 +141,7 @@ const SideBar = ({
             onChange={handleTechnicianChange}
           >
             {options.map((option) => (
-              <option key={option.handlerName} value={option.handlerName}>
+              <option key={option.id} value={option.handlerName}>
                 <span style={{ fontWeight: "bold" }}>{option.handlerName}</span>{" "}
                 <p className="text-secondary">{option.expertise}</p>
               </option>
@@ -145,7 +151,6 @@ const SideBar = ({
         {error && (
           <div className="invalid-feedback">Please select a technician</div>
         )}
-        <p>{selectedOption}</p>
         <div className="row">
           <div className="col-12 d-flex flex-column justify-content-center">
             <button

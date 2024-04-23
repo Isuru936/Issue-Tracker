@@ -7,6 +7,7 @@ package com.issue_tracker.issur_tracker.controller;
 import com.issue_tracker.issur_tracker.service.IssueService;
 import com.issue_tracker.issur_tracker.model.Issue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -30,6 +31,19 @@ public class IssueController {
     // HERE WELL BE stuff FROM THE IssueService
     public List<Issue> getIssue() {
         return issueService.getIssue();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Issue> getIssueById(@PathVariable Long id){
+        Issue issue = issueService.getIssueById(id);
+        if(issue == null){
+            System.out.println(id);
+            return ResponseEntity.notFound().build();
+        } else {
+            System.out.println(issue);
+            return ResponseEntity.ok(issue);
+
+        }
     }
 
     @PostMapping

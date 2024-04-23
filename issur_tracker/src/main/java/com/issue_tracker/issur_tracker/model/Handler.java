@@ -14,25 +14,29 @@ public class Handler {
     private String email;
     private String password;
     private String expertise;
+    private String profilePic;
 
 
     public Handler(){
 
     }
 
-    public Handler(Long id, String name, String email, String password, String expertise) {
+    public Handler(Long id, String name, String email, String password, String expertise, String profilePic) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.expertise = expertise;
+        this.profilePic = profilePic;
     }
 
-    public Handler(String name, String email, String password, String expertise) {
+
+    public Handler(String name, String email, String password, String expertise, String profilePic) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.expertise = expertise;
+        this.profilePic = profilePic;
     }
 
     public Long getId() {
@@ -75,6 +79,14 @@ public class Handler {
         this.name = name;
     }
 
+    public String getprofilePic() {
+        return profilePic;
+    }
+
+    public void setprofilePicL(String profilePic) {
+        this.profilePic = profilePic;
+    }
+
     @Override
     public String toString() {
         return "Handler{" +
@@ -83,6 +95,7 @@ public class Handler {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", expertise='" + expertise + '\'' +
+                ", profilePic='" + profilePic + '\'' +
                 '}';
     }
 }

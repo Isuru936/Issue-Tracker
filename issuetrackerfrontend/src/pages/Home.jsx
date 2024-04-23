@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SideBar from "../component/SideBar";
 import "../component/sidebar.css";
 import NavigationBar from "../component/NavigationBar";
-import { fetchIssues, deleteIssue } from "../services/apiService";
+import { fetchIssues } from "../services/apiService";
 import Toolbar from "../component/Toolbar";
 import { Icon } from "@iconify/react/dist/iconify.js";
 

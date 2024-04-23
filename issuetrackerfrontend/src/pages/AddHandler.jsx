@@ -3,28 +3,57 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import NavigationBar from "../component/NavigationBar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import firebase from "firebase/compat/app";
+import bcrypt from "bcryptjs";
 
 function AddHandler() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [imageURL, setImageUrl] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     expertise: "",
+    profilePic:
+      "https://firebasestorage.googleapis.com/v0/b/issue-tracker-9b307.appspot.com/o/OIP%20(1).jpeg?alt=media&token=751e4769-576a-4ef8-b694-ea6cb88ab855",
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleFileUpload = async (e) => {
+    const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
+    setLoading(true);
+    const storageRef = firebase.storage().ref();
+    const fileRef = storageRef.child(selectedFile.name);
+    try {
+      const snapshot = await fileRef.put(selectedFile);
+      const url = await snapshot.ref.getDownloadURL();
+      setFormData({ ...formData, profilePic: url });
+      setImageUrl(url);
+      console.log(formData.profilePic);
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      alert("Failed to upload file. Please try again.");
+    }
+    setLoading(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      const hashedPassword = await bcrypt.hash(formData.password, 10);
+      const updatedFormData = { ...formData, password: hashedPassword };
+      setFormData(updatedFormData);
+
       const response = await axios.post(
         "http://localhost:8080/api/v1/handlers",
-        formData,
+        updatedFormData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -51,6 +80,26 @@ function AddHandler() {
           <div className="alert alert-success mt-3">Handler added!</div>
         )}
         <Form onSubmit={handleSubmit}>
+          <div className="d-flex">
+            <img
+              src={formData.profilePic}
+              className="rounded-circle"
+              style={{ width: "100px", height: "100px" }}
+              alt="profile"
+            />
+            <FormGroup>
+              <Label for="name" className="text-light">
+                Upload image
+              </Label>
+              <Input
+                type="file"
+                name="profilePic"
+                id="profilePic"
+                accept="image/*"
+                onChange={handleFileUpload}
+              />
+            </FormGroup>
+          </div>
           <FormGroup>
             <Label for="name" className="text-light">
               Name{" "}

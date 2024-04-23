@@ -30,7 +30,7 @@ function Toolbar() {
           <Icon icon={refreshIcon} /> Refresh
         </div>
       </Link>
-      <Link to="" className="text-decoration-none text-white">
+      <Link to="/view-handlers" className="text-decoration-none text-white">
         <div className="p-2 rounded hover-bg-dark hover-text-dark">
           <Icon icon={userList} /> View Handlers
         </div>

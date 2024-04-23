@@ -23,6 +23,10 @@ public class IssueService {
         return issueRepository.findAll(); // this easily fetches Issues from the database
     }
 
+    public Issue getIssueById(Long id) {
+        return issueRepository.findById(id).orElse(null);
+    }
+
     public void addNewIssue(Issue issue) {
         issueRepository.save(issue);
         System.out.println(issue);
@@ -41,12 +45,6 @@ public class IssueService {
         Issue issue = issueRepository.findById(issueId)
                 .orElseThrow(() -> new IllegalStateException(
                         "issue with id " + issueId + "does not exist"));
-
-        // ADD LOGICS / VALIDATIONS LIKE THESE
-        // if(email != null && email.length() > 0 && !Objects.equals(issue.getEmail(),
-        // email)){
-        // issue.setEmail(email);
-        // }
 
         // Update email if not null
         if (technician != null) {
