@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: width 0.5s;
+  visibility: hidden;
+  padding-top: 60px;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 16px;
+  transition: margin-left 0.5s;
+}
+
+.sidebar h2 {
+  color: white;
+}
+
+.sidebar-open .content {
+  margin-left: 50%;
+}
+
+.sidebar-open .sidebar {
+  width: 25%;
+  transition: width 0.5s;
+  visibility: unset;
+}
+
+.text-ash {
+  color: rgba(128, 128, 128, 0.5);
+}
