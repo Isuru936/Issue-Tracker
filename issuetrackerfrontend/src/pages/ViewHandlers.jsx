@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardSubtitle,
-} from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle } from "reactstrap";
 import NavigationBar from "../component/NavigationBar";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function ViewHandlers() {
   const [handlers, setHandlers] = useState([]);
 
   useEffect(() => {
+    if (localStorage.getItem("userEmail") === null) {
+      return (window.location.href = "/login");
+    }
+    AOS.init();
     fetchData();
   }, []);
 
@@ -33,14 +34,15 @@ function ViewHandlers() {
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {handlers.map((handler) => (
             <div key={handler.id} className="col">
-              <Card className="h-100">
+              <Card className="h-100" data-aos="fade-up">
                 <CardBody className="d-flex flex-column justify-content-center align-items-center">
                   <img
                     src={handler.profilePic}
                     className="rounded-circle mb-3"
-                    style={{ width: "170px" }}
+                    style={{ width: "170px", height: "170px" }}
                     alt=""
                   />
+
                   <CardTitle tag="h5">{handler.name}</CardTitle>
                   <CardSubtitle tag="h6" className="mb-2 text-muted">
                     {handler.expertise}

@@ -1,4 +1,4 @@
-package com.its.its.config;
+package com.issue_tracker.issur_tracker.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +38,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers(HttpMethod.GET,"/api/***").permitAll()
+                        authorize.requestMatchers(HttpMethod.GET,"/api/v1/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/v1/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE,"/api/v1/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/api/v1/**").permitAll()
                                 .requestMatchers("/api/auth/**").permitAll()
                                 .anyRequest().authenticated()
     );

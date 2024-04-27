@@ -7,6 +7,10 @@ import userList from "@iconify/icons-ion/list";
 import { Link } from "react-router-dom";
 
 function Toolbar() {
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = "/login";
+  };
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const toggleSearchVisibility = () => {
@@ -35,6 +39,12 @@ function Toolbar() {
           <Icon icon={userList} /> View Handlers
         </div>
       </Link>
+      <button
+        className="p-2 rounded text-white bg-black hover-bg-dark hover-bg-dark ms-auto"
+        onClick={handleLogout}
+      >
+        LogOut
+      </button>
     </div>
   );
 }

@@ -1,9 +1,11 @@
 package com.issue_tracker.issur_tracker.config;
 
+import com.issue_tracker.issur_tracker.Entity.User;
 import com.issue_tracker.issur_tracker.model.Handler;
 import com.issue_tracker.issur_tracker.model.Issue;
 import com.issue_tracker.issur_tracker.repository.HandlerRepository;
 import com.issue_tracker.issur_tracker.repository.IssueRepository;
+import com.issue_tracker.issur_tracker.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +31,28 @@ public class StudentConfig {
                     1
             );
 
-            repository.saveAll(
-                    List.of(umaya));
-        };
+            Issue anotherIssue = new Issue(
+                    "another@gmail.com",
+                    "Another Subject",
+                    "Another description",
+                    "John Doe",
+                    LocalDateTime.of(2024, Month.APRIL, 10, 0, 0),
+                    LocalDateTime.of(2024, Month.APRIL, 15, 0, 0),
+                    0
+            );
 
+            Issue thirdIssue = new Issue(
+                    "third@gmail.com",
+                    "Third Subject",
+                    "Third description",
+                    "Alice Johnson",
+                    LocalDateTime.of(2024, Month.MAY, 5, 0, 0),
+                    LocalDateTime.of(2024, Month.MAY, 10, 0, 0),
+                    2
+            );
+
+            repository.saveAll(List.of(umaya, anotherIssue, thirdIssue));
+        };
 
     }
     @Bean
@@ -41,7 +61,7 @@ public class StudentConfig {
             Handler handler1 = new Handler(
                     "John Doe",
                     "john.doe@example.com",
-                    "123456",
+                    "$2a$10$8jZ1rS9IYqgmYPLGueqdZutYELPA1Tlu2AJ2tXd6e9gZILZu2A4wa",
                     "Developer",
 "https://firebasestorage.googleapis.com/v0/b/issue-tracker-9b307.appspot.com/o/OIP%20(1).jpeg?alt=media&token=751e4769-576a-4ef8-b694-ea6cb88ab855"
             );
@@ -49,7 +69,7 @@ public class StudentConfig {
             Handler handler2 = new Handler(
                     "Jane Smith",
                     "jane.smith@example.com",
-                    "654321",
+                    "$2a$10$wm3I1fT.eYYsyfvPVVEiHu1YZtqU2njI3EUwnbzQXg8mGjJq5eaN2",
                     "Analyst",
                     "https://firebasestorage.googleapis.com/v0/b/issue-tracker-9b307.appspot.com/o/OIP%20(1).jpeg?alt=media&token=751e4769-576a-4ef8-b694-ea6cb88ab855"
 
@@ -58,14 +78,26 @@ public class StudentConfig {
             Handler handler3 = new Handler(
                     "Michael Johnson",
                     "michael.johnson@example.com",
-                    "987654",
+                    "$2a$10$wm3I1fT.eYYsyfvPVVEiHu1YZtqU2njI3EUwnbzQXg8mGjJq5eaN2",
                     "UI/UX Designer",
-                    "https://firebasestorage.googleapis.com/v0/b/issue-tracker-9b307.appspot.com/o/OIP%20(1).jpeg?alt=media&token=751e4769-576a-4ef8-b694-ea6cb88ab855"
+                    "https://firebasestorage.googleapis.com/v0/b/issue-tracker-9b307.appspot.com/o/Andy_Anderson_team_page_22.jpeg?alt=media&token=443e459b-3a84-4a87-82b5-091a7d5acf10"
             );
 
             handlerRepository.saveAll(List.of(handler1, handler2, handler3));
         };
     }
+
+//    @Bean
+//    CommandLineRunner handleUserData(UserRepository userRepository){
+////        return args -> {
+////            User tony = new User(
+////                    "Tony",
+////                    "tony@gmail.com",
+////                    "1234",
+////                    "isuru"
+////            );
+////        };
+//    }
 
 //    @Bean
 //    public BCryptPasswordEncoder passwordEncoder() {

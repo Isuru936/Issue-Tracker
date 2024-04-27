@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../component/addIssue.css";
 import NavigationBar from "../component/NavigationBar";
 import axios from "axios";
@@ -16,6 +16,12 @@ function AddIssue() {
     description: "description",
     imageURL: "",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("userEmail") === null) {
+      return (window.location.href = "/login");
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -71,9 +77,8 @@ function AddIssue() {
       console.log("Issue submitted successfully:", response.data);
       console.log(imageUrl);
       setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 3000);
+      alert("Issue submitted successfully");
+      window.location.href = "/";
     } catch (error) {
       console.log("error:>> ", error);
     }

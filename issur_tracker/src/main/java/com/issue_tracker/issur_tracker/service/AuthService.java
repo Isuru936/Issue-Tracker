@@ -1,7 +1,7 @@
-package com.its.its.Service;
+package com.issue_tracker.issur_tracker.service;
 
-import com.its.its.dto.LoginDto;
-import com.its.its.dto.SignUpDto;
+import com.issue_tracker.issur_tracker.dto.LoginDto;
+import com.issue_tracker.issur_tracker.dto.SignUpDto;
 
 public interface AuthService {
     String login (LoginDto loginDto);

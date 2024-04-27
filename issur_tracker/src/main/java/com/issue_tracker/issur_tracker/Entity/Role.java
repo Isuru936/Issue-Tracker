@@ -1,4 +1,4 @@
-package com.its.its.Entity;
+package com.issue_tracker.issur_tracker.Entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

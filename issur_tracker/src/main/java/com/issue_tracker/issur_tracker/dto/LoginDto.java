@@ -1,4 +1,4 @@
-package com.its.its.dto;
+package com.issue_tracker.issur_tracker.dto;
 
 import lombok.Data;
 

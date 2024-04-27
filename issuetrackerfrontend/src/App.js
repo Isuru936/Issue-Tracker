@@ -6,6 +6,8 @@ import SideBar from "./component/SideBar.jsx";
 import AddHandler from "./pages/AddHandler.jsx";
 import ViewIssue from "./pages/ViewIssue.jsx";
 import ViewHandlers from "./pages/ViewHandlers.jsx";
+import Login from "./pages/Login.jsx";
+import HandlerUI from "./pages/HandlerUI.jsx";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/add-handler" element={<AddHandler />} />
           <Route path="/view-issue/:id" element={<ViewIssue />} />
           <Route path="/view-handlers" element={<ViewHandlers />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/handlerUI" element={<HandlerUI />} />
         </Routes>
       </BrowserRouter>
     </div>

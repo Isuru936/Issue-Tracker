@@ -86,6 +86,8 @@ const SideBar = ({
             formattedDate,
             "Updated"
           );
+          //i want to add a method tto send emails to the technician about the new issue assigned to him
+
           refreshSidebarData();
         })
         .catch((error) => {

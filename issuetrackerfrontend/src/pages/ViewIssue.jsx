@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { deleteIssue, fetchIssue, updateIssue } from "../services/apiService";
 import { fetchHandlers } from "../services/handlerService";
 import { useNavigate } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function ViewIssue() {
   const { id } = useParams();
@@ -13,6 +15,10 @@ function ViewIssue() {
   const [selectedOption, setSelectedOption] = useState("");
 
   useEffect(() => {
+    if (localStorage.getItem("userEmail") === null) {
+      return (window.location.href = "/login");
+    }
+    AOS.init();
     fetchIssue(id)
       .then((data) => {
         setIssue(data);

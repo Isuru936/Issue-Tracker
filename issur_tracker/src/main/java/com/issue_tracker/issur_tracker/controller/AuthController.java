@@ -1,12 +1,11 @@
-package com.its.its.Controller;
+package com.issue_tracker.issur_tracker.controller;
 
-import com.its.its.Entity.Role;
-import com.its.its.Entity.User;
-import com.its.its.Repository.RoleRepository;
-import com.its.its.Repository.UserRepository;
-import com.its.its.config.SecurityConfig;
-import com.its.its.dto.LoginDto;
-import com.its.its.dto.SignUpDto;
+import com.issue_tracker.issur_tracker.Entity.Role;
+import com.issue_tracker.issur_tracker.Entity.User;
+import com.issue_tracker.issur_tracker.dto.LoginDto;
+import com.issue_tracker.issur_tracker.dto.SignUpDto;
+import com.issue_tracker.issur_tracker.repository.RoleRepository;
+import com.issue_tracker.issur_tracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

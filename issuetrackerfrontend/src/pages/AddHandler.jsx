@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import NavigationBar from "../component/NavigationBar";
 import axios from "axios";
@@ -19,6 +19,12 @@ function AddHandler() {
     profilePic:
       "https://firebasestorage.googleapis.com/v0/b/issue-tracker-9b307.appspot.com/o/OIP%20(1).jpeg?alt=media&token=751e4769-576a-4ef8-b694-ea6cb88ab855",
   });
+
+  useEffect(() => {
+    if (localStorage.getItem("userEmail") === null) {
+      return (window.location.href = "/login");
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -81,25 +87,32 @@ function AddHandler() {
         )}
         <Form onSubmit={handleSubmit}>
           <div className="d-flex">
-            <img
-              src={formData.profilePic}
-              className="rounded-circle"
-              style={{ width: "100px", height: "100px" }}
-              alt="profile"
-            />
-            <FormGroup>
-              <Label for="name" className="text-light">
-                Upload image
-              </Label>
-              <Input
-                type="file"
-                name="profilePic"
-                id="profilePic"
-                accept="image/*"
-                onChange={handleFileUpload}
+            {loading ? (
+              <div className="spinner-border text-primary" role="status">
+                {/* Spinner while uploading */}
+              </div>
+            ) : (
+              <img
+                src={formData.profilePic}
+                className="rounded-circle"
+                style={{ width: "100px", height: "100px" }}
+                alt="profile"
               />
-            </FormGroup>
+            )}
           </div>
+          <FormGroup>
+            <Label for="name" className="text-light">
+              Upload image
+            </Label>
+            <Input
+              type="file"
+              name="profilePic"
+              id="profilePic"
+              accept="image/*"
+              onChange={handleFileUpload}
+            />
+          </FormGroup>
+          {loading ? <p>uploading</p> : ""}
           <FormGroup>
             <Label for="name" className="text-light">
               Name{" "}
@@ -164,7 +177,6 @@ function AddHandler() {
               <option value="Technical Writer">Technical Writer</option>
             </Input>
           </FormGroup>
-
           <Button type="submit" color="primary">
             Add Handler
           </Button>

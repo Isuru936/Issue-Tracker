@@ -1,9 +1,9 @@
-package com.its.its.Service.impl;
+package com.issue_tracker.issur_tracker.service.impl;
 
-import com.its.its.Entity.User;
-import com.its.its.Repository.UserRepository;
+import com.issue_tracker.issur_tracker.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +21,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException{
-        User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+        com.issue_tracker.issur_tracker.Entity.User user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email: " + usernameOrEmail));
 
         Set<GrantedAuthority> authorities = user
